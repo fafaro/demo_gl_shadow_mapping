@@ -1,0 +1,36 @@
+1. Create a GLContext window w.
+2. Let the triangles that need to be rendered be tri.
+3. Create a framebuffer with depth texture attached to it, and call it dfb.
+4. Create shader program depthProg for depth rendering.
+	vs {
+	   Transform vertex, and send new position to fs.
+	}
+	fs {
+	   Write z value to depth.
+	}
+5. Create shader program shadowProg for shadow mapping.
+	vs {
+		Send position and normal.
+	}
+	fs {
+		We want to write a color. The color depends on shadow, and normal facing light.
+		Transform point to lightspace.
+		Read depth texture at the point and compare z value.
+		
+		Tranform point and normal to worldspace.
+		diffuse = max(light.dot(normal), 0)
+		
+		We should probably add specular here too.
+		finalColor = diffuse * materialColor * shadow;
+	}
+loop {
+	3. Render depth texture:
+	   1. Set dfb as target.
+	   2. Set the viewport to fit the texture.
+	   3. Set the projections such that the triangles will be rendered in lightspace.
+	   4. Render the triangles tri with depthProg.
+	   5. Set target back to default frame.
+	4. Set up matrices to camera space.
+	5. Set shaders to shadowProg.
+	6. Render the triangles tri.
+}
