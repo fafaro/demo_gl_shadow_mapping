@@ -401,6 +401,7 @@ public:
 		glPopMatrix();
 		glBegin(GL_POLYGON);
 		float s = 0.3;
+		glNormal3f(0, 0, 1);
 		glVertex3f(-s, -s, 0);
 		glVertex3f( s, -s, 0);
 		glVertex3f( s,  s, 0);
@@ -417,8 +418,8 @@ public:
 	}
 
 	static void __cdecl initFunc() {
-		vssource = readFile("vs.glsl");
-		fssource = readFile("fs.glsl");
+		//vssource = readFile("vs.glsl");
+		//fssource = readFile("fs.glsl");
 		printf("OpenGL version is (%s)\n", glGetString(GL_VERSION));
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
@@ -428,45 +429,45 @@ public:
 		glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);*/
-		if (1) {
-			prog = glCreateProgramObjectARB();
-			uint vs = glCreateShaderObjectARB(GL_VERTEX_SHADER);
-			uint fs = glCreateShaderObjectARB(GL_FRAGMENT_SHADER);
+		//if (1) {
+		//	prog = glCreateProgramObjectARB();
+		//	uint vs = glCreateShaderObjectARB(GL_VERTEX_SHADER);
+		//	uint fs = glCreateShaderObjectARB(GL_FRAGMENT_SHADER);
 
-			const GLcharARB *src;
-			src = vssource.c_str();
-			glShaderSourceARB(vs, 1, (const char **)&src, NULL);
-			src = fssource.c_str();
-			glShaderSourceARB(fs, 1, (const char **)&src, NULL);
-			glCompileShaderARB(vs);
-			glCompileShaderARB(fs);
+		//	const GLcharARB *src;
+		//	src = vssource.c_str();
+		//	glShaderSourceARB(vs, 1, (const char **)&src, NULL);
+		//	src = fssource.c_str();
+		//	glShaderSourceARB(fs, 1, (const char **)&src, NULL);
+		//	glCompileShaderARB(vs);
+		//	glCompileShaderARB(fs);
 
-			GLint success;
-			success = 0;
-			glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
-			if (success == GL_FALSE) {
-				printf("Vertex shader compilation failed!\n");
-				char buffer[200];
-				glGetShaderInfoLog(vs, 200, 0, buffer);
-				printf("Message: %s\n", buffer);
-			}
-			success = 0;
-			glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
-			if (success == GL_FALSE) {
-				printf("Fragment shader compilation failed!\n");
-				char buffer[200];
-				glGetShaderInfoLog(fs, 200, 0, buffer);
-				printf("Message: %s\n", buffer);
-			}
+		//	GLint success;
+		//	success = 0;
+		//	glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+		//	if (success == GL_FALSE) {
+		//		printf("Vertex shader compilation failed!\n");
+		//		char buffer[200];
+		//		glGetShaderInfoLog(vs, 200, 0, buffer);
+		//		printf("Message: %s\n", buffer);
+		//	}
+		//	success = 0;
+		//	glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+		//	if (success == GL_FALSE) {
+		//		printf("Fragment shader compilation failed!\n");
+		//		char buffer[200];
+		//		glGetShaderInfoLog(fs, 200, 0, buffer);
+		//		printf("Message: %s\n", buffer);
+		//	}
 
-			glAttachObjectARB(prog, vs);
-			glAttachObjectARB(prog, fs);
-			glLinkProgramARB(prog);
-			glUseProgramObjectARB(prog);
-		}
-		if (1) {
-			depthBuffer.init();
-		}
+		//	glAttachObjectARB(prog, vs);
+		//	glAttachObjectARB(prog, fs);
+		//	glLinkProgramARB(prog);
+		//	glUseProgramObjectARB(prog);
+		//}
+		//if (1) {
+		//	depthBuffer.init();
+		//}
 		scene01.init();
 	}
 
